@@ -1,0 +1,14 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+\item For each vertex $x \in V$, split them into $x_\text{in}$ and $x_\text{out}$. Then, add connections for each edge in $G$. For example, take $(x, y) \in E$, we would add a directed edge from $x_\text{out}$ to $y_\text{in}$, setting their capacity to $1$. We will introduce a new node, say $t$ to be a sink vertex and connect it to $u$ and $v$ with a weight of $1$ each. We will let $w$ be a source vertex. We can then run the Ford-Fulkerson algorithm on this new graph to find the maximum flow from $w$ to $t$. If the maximum flow is $2$, then we know that the only way that could happen is if there exists a simple path between $w$ and $t$ through $u$ and another through $v$. The Ford-Fulkerson algorithm runs in $O(fm)$ time, for maximum flow $f$, which would be $2$ in our case. Accounting for creating the transformed graph, our time complexity is $O(n + m)$.
+\end{enumerate}
+\end{solution}
+\end{document}

@@ -1,0 +1,88 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+\usepackage{circuitikz}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected and unweighted graph. We define two kinds of colourings for this problem.
+
+A {\em poor colouring} assigns each vertex a set of two {\em distinct} colours such that each edge must use two different sets of colours. However, they may share a common colour. In other words, the endpoints of each edge in a poor colouring can share {\em at most} one common colour.
+
+A {\em rich colouring} assigns each vertex a set of two colours such that each edge must use two different sets of colours. Additionally, they may not share any colour. In other words, the endpoints of each edge in a rich colouring uses {\em exactly} four distinct colours. Therefore, every rich colouring is also a poor colouring.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Given a graph $G = (V, E)$, show that it is $\mathsf{NP\text-H}$ to decide if $G$ has a poor colouring using three colours.
+
+    {\bfseries Hint.} {\em There is an easy reduction from $\compproblem{3Col}$...}
+
+    \item Given a graph $G = (V, E)$, show that deciding if $G$ has a rich colouring is solvable in polynomial time when using two, three, and four colours. Why doesn't this contradict the fact that deciding if $G$ has a poor colouring using three colours is $\mathsf{NP\text-H}$?
+
+    {\bfseries Hint.} {\em Show that $G$ has a rich colouring using two and three colours if and only if $G$ has no edges, and show that $G$ has a rich colouring using four colours if and only if $G$ is bipartite.}
+
+    \item Show that it is $\mathsf{NP\text-H}$ to decide if $G$ has a rich colouring using five colours.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item If we solve $\compproblem{3Col}$ on $G$, then each colour assignment can be aligned to a unique set of two colours. For example, $\text{red} \to \{\text{blue}, \text{green}\}$, $\text{green} \to \{\text{red}, \text{green}\}$ and $\text{blue} \to \{\text{red}, \text{green}\}$. The converse is also true, as, for three colours, there can only be three combinations at each vertex. Each of those simply need to be assigned a single colour. Since $\compproblem{3Col}$ is NP-H, then deciding if $G$ has a poor colouring will also be NP-H.
+
+    \item We will consider this in two cases.
+\begin{itemize}
+	\item If we have any amount under $4$ colours, any selection of two colours for one vertex (without loss of generality) will restrict the other vertex to have less than $2$ distinct colours to choose from when connected by an edge, making a rich colouring impossible if there is an edge. Each edge requires $4$ distinct colours, as both ends cannot share a similar colour and both require $2$ colours. In other words, $G$ would only have a rich colouring using two and three colours if and only if $G$ has no edges.
+	\item If we have four colours, we observe that there exists a rich colouring if and only if $G$ is bipartite. Suppose we pick two arbitrary colours for a randomly selected vertex. Any neighbouring vertex must use the remaining two colours. Similarly, any neighbouring vertices of those must use the original two colours, and the process continues. Once two colours have been grouped, they will remain grouped due to the lack of other choices. Thus, if we reduce the two colour choices to a single colour, we must have a bipartite graph for there to exist a rich colouring. If the graph is bipartite, we can reverse the process of assigning two colours to each of the two groups of vertices. Bipartite detection is possible in polynomial time.
+\end{itemize}
+
+Each of these cases are solved in polynomial time. The additional restrictions in a rich colouring when compared to a poor colouring reduces down the number of decisions required dramatically. The additional complex interactions between the colours provides a more combinatorially challenging problem.
+
+    \item To prove this, we can use a polynomial reduction to the $\compproblem{3Col}$ problem. Create a new graph $G'$ from copying $G$ with a new vertex $x$ with edges connecting $(v, x)$ for all $v \in V$. Then, for each edge in $E$ (not connecting to $x$), we must split these up into three separate paths. Refer to the diagram below for the process of constructing $G'$.
+
+\begin{center}
+\resizebox{0.5\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\LARGE]
+\draw [short] (8.5,18.25) -- (3,18.25);
+\draw (6.75,21) to[short] (6.75,20.5);
+\draw [short] (3,18.25) -- (5.75,23.25);
+\draw [short] (5.75,23.25) -- (8.5,18.25);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (8.5,18.25) circle (0.75cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (3,18.25) circle (0.75cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (5.75,23.25) circle (0.75cm);
+\draw [short] (23,15.75) -- (14.5,15.75);
+\draw (6.75,21) to[short] (6.75,20.5);
+\draw [short] (14.75,15.75) -- (18.75,20.75);
+\draw [short] (18.75,20.75) -- (23,15.75);
+\draw [short] (18.75,25) -- (18.75,20.75);
+\draw [short] (18.75,25) -- (14.5,15.75);
+\draw [short] (18.75,25) -- (23,15.75);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (18.75,25) circle (0.75cm) node {\LARGE \textit{x}} ;
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (23,15.75) circle (0.75cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (14.5,15.75) circle (0.75cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (18.75,20.75) circle (0.75cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (17.5,19.25) circle (0.25cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (16.25,17.75) circle (0.25cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (21.25,17.75) circle (0.25cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (20,19.25) circle (0.25cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (17.25,15.75) circle (0.25cm);
+\draw [ fill={rgb,255:red,217; green,217; blue,217} ] (20.25,15.75) circle (0.25cm);
+\draw [line width=2pt, ->, >=Stealth] (10.5,21) -- (13.5,21);
+\end{circuitikz}
+}%
+\label{fig:my_label}
+\end{center}
+
+Now, suppose that $G'$ has a rich colouring with $5$ colours. Without loss of generality, we will assume two of them are used in $x$, making the vertices in $V$ unable to use those colours. Now, because of the buffer vertices introduced on each edge in $E$, we can use the colours from $x$ to reduce the rest of the colouring into a poor colouring with three colours. For example, if we have an edge-path with one end point having the colours red and green, we can assign red to be with one colour from $x$ to be the intermediate vertex before the other end, and we can then use green safely in the other vertex. Thus, we are able to reduce our problem to the problem in part (a).\\
+
+Now, suppose the converse is true. That we have a solution to $\compproblem{3Col}$ in $G$. We again colour the vertex $x$ with two of the five colours, and we can then simply assign each of the three colours their own colouring set, using the same process of the buffer vertices as described above.\\
+
+We have proven $G'$ has a rich colouring with $5$ colours if and only if $G$ has a solution to $\compproblem{3Col}$, making this problem NP-H.
+
+\end{enumerate}
+
+
+\end{solution}
+\end{document}

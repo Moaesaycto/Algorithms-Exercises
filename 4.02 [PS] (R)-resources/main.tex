@@ -1,0 +1,20 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Consider the contrapositive. Let $\hat{C}(S,T)$ be the minimum cut of $\hat{F}$. From the new capacity function, we must have
+
+$$\hat{C}(S,T) = C(S,T) \cdot (m + 1) + k,$$
+
+where $k$ is the number of edges the cut passes through. Our function is linear, with a positive coefficient $m+1$, which means that the minimum of this occurs at the minimum $C(S,T)$, and so $C(S,T)$ is minimised. The value of $k$ does not affect the minimality of $C(S,T)$ because the scaling factor $m+1$ dominates the additive term $k$. Even if two cuts have different numbers of crossing edges, the cut with the smaller capacity in $F$ will still have a smaller capacity in $\hat{F}$ due to the linear scaling and the fact that $k \leq m$. Thus, by contrapositive, $C(S,T)$ must also be a minimum cut of $F$.
+
+\item Suppose that we have two distinct cuts yet equal capacity cuts $C(S, T)$ and $C(S', T')$. Let's also assume that $C(S',T')$ passes through more edges. Their capacity in $\hat{F}$ will be $C(S,T)\cdot (m+1) + k_1$ and $C(S',T')\cdot (m+1) + k_2$ respectively. Now, $k_1$ represents the number of edges $C(S,T)$ passes through, and $k_2$ represents the number of edges $C(S', T')$ passes through. It's clear that $k_1 < k_2$, and since $C(S,T) = C(S', T')$, we have that the minimum must also pass through the fewest number of edges. 
+\end{enumerate}
+\end{solution}
+\end{document}

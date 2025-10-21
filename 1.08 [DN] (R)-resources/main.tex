@@ -1,0 +1,37 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be a directed and acyclic graph.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Show that $G$ has {\em at most} one Hamiltonian path. Recall that a Hamiltonian path in $G$ is a path that visits every edge exactly once.
+
+    \item Prove that $G$ has a {\em unique} topological order if and only if $G$ has a Hamiltonian path.
+
+    {\bfseries Hint.} {\em First, show that if $G$ has a Hamiltonian path $P$, then the order of the vertices in $P$ is, in fact, a topological order. Then, show that if $G$ has no Hamiltonian paths, then $G$ must have at least two distinct topological orders.}
+
+    \item Prove that $G$ has a {\em unique} topological order if and only if, for every pair of vertices $u, v \in V$, either there exist a path from $u$ to $v$ or there exist a path from $v$ to $u$. In other words, every pair of vertices are {\em comparable}.
+
+    \item Hence, describe an $O(m + n)$ algorithm to decide if a directed and acyclic graph $G$ has a Hamiltonian path. In other words, the $\compproblem{HamPath}$ problem is not a {\em hard} problem\footnote{The technical term for {\em hard} problem is $\mathsf{NP}$-complete, but we will see this towards the end of the course.} if $G$ is a DAG.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item (We will assume the question is referring to the path visiting each \color{red}vertex \color{black} exactly once, not the edges). Recall in question 1.07, we defined a mapping $f: V \to \{1, \dots, n\}$ by ordering the results based on being source points. We will use this as the topological ordering, which we know exists for all DAGs. If $G$ has a Hamiltonian path, then it must follow the topological ordering, otherwise it would imply that there exists a directed edge that goes against the direction of the path, which is not possible. There is at most one way to create a Hamiltonian path as it must respect the topological order, and hence, if it exists, it must be unique.
+
+    \item If $G$ has a Hamiltonian path $P$, the sequence of vertices in $P$ forms a topological order, as it respects the direction of every edge in $G$. This order is unique because any different topological order would imply an alternative Hamiltonian path, contradicting the uniqueness of $P$. Conversely, if $G$ lacks a Hamiltonian path, then there exists a pair of vertices $u$ and $v$ with no fixed sequential relationship, a global phenomenon indicating the potential for multiple topological orders. Locally, this is reflected when labeling vertices in a topological sort; the first time a vertex without a fixed position is considered, it can be placed in multiple positions, leading to different topological orders. Therefore, $G$ has a unique topological order if and only if it has a Hamiltonian path.
+
+\item If $G$ has a unique topological order, then for any pair of vertices $u, v \in V$, their relative positions in this order are fixed. If there were no path between $u$ and $v$ in either direction, we could swap their positions in the topological order without violating any dependencies, contradicting the uniqueness of the topological order. Therefore, for every pair of vertices $u, v \in V$, there must exist a path from $u$ to $v$ or a path from $v$ to $u$. Conversely, if for every pair of vertices $u, v \in V$, there exists a path from $u$ to $v$ or a path from $v$ to $u$, then the graph is connected in a way that any valid topological order must respect these paths. This condition ensures that there is only one way to order the vertices such that all dependencies are respected, resulting in a unique topological order. Hence, $G$ has a unique topological order if and only if, for every pair of vertices $u, v \in V$, either there exists a path from $u$ to $v$ or there exists a path from $v$ to $u$.
+
+
+    \item First, perform a topological sort on $G$ using Kahn's algorithm, which will take $O(n + m)$. Then, check if there is an edge between every consecutive pair of vertices in the ordering. That is, for the sorted list of vertices $[v_1, v_2, \ldots, v_n]$, check if $(v_i, v_{i+1}) \in E$ for all $1 \leq i < n$. If there is an edge between of the pairs, then there is a Hamiltonian path in $G$. Otherwise, there is no Hamiltonian path.
+\end{enumerate}
+\end{solution}
+\end{document}

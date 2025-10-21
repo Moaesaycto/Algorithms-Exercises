@@ -1,0 +1,17 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Begin by constructing a residual graph for $f$, say $G_f$, which has the same vertices as $G$ but with an edge capacity, defined for edge $e$, of $w(e) - f(e)$. We can then run BFS or DFS from $s$ to $t$ to see if such an augmenting path exists - that is, along edges with a positive capacity. If one does exist, then it implies there is a more optimal solution as more flow can make it through. If one does not exist, then there would be now way to pass more. Generating and running the searches runs with respect to the number of edges, so we must have a linear time complexity of $O(|E| + |V|)$.
+
+	\item We can assume $f$ is a maximum flow, so, we construct a residual graph, excluding any edges where $f(e) > w(e)$. Then, we run another search to see how many different ways there are to get from $s$ to $t$. If there are more than one, then our path is not unique. Again, this algorithm will run in $O(|E| + |V|)$ time.
+
+\end{enumerate}
+\end{solution}
+\end{document}

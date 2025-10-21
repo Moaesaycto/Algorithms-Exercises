@@ -1,0 +1,16 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Let $f: \mathbb{Z} \to \mathbb{Z}$ be a convex function, for example $f(x) = x^2$. Suppose we have an array of integers $X$, we can define a mapping into $2$-dimensional space according to $X[i] \to \left( X[i], f(X[i])\right)$. We can then solve the $\compproblem{ConvexHull}$ problem. $f$ can be run in $O(1)$ time depending on the function. The order they appear in from left to right will be calculated by $\compproblem{ConvexHull}$, so after the problem is solved, you will have an ordered set of vertices. This operation will be a linear time reduction from $\compproblem{Sorting}$ to $\compproblem{ConvexHull}$.
+
+\item The  $\compproblem{Sorting}$ problem is well known to have a lower bound of $\Omega(n \log n)$, so we will assume this is true and the  $\compproblem{Sorting}$ problem cannot be reduced. Now, let's suppose that there exists an algorithm that can compute $\compproblem{ConvexHull}$ in $o(n \log n)$ time. This would imply that we, post-reduction from part (a), we can determine  $\compproblem{Sorting}$ in $o(n \log n)$, plus the linear time for reduction. In other words, it implies we can solve $\compproblem{Sorting}$ in less than $n \log n$ time. However, this implies that $\compproblem{Sorting}$ can be run in $o(n \log n)$, contradicting our assumption of $\Omega(n \log n)$ as a lower bound.
+\end{enumerate}
+\end{solution}
+\end{document}

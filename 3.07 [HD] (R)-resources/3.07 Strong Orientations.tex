@@ -1,0 +1,14 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label=(\alph*)]
+ Pick a random vertex $v \in V$. Since the graph is bridgeless and connected, $v$ must have a degree of at least $2$ (as a degree of $1$ would imply there exists a bridge). Start a DFS from $v$, and as you traverse each edge for the first time, direct it away from the current vertex. When you reach a new vertex, apply the same process to all of its undirected edges. Continue this DFS process until all edges have been directed. Each vertex we reach will be reachable from $v$, and since the graph is bridgeless, there must also be a way to return to $v$ from all other vertices. Therefore, every vertex is reachable from every other vertex, ensuring a strong orientation of the graph. This algorithm runs in $O(|E|)$ time since each edge is consered at most twice: once when it is directed during the DFS traversal, and possibly once more if it is part of a backtracking step.
+\end{enumerate}
+\end{solution}
+\end{document}

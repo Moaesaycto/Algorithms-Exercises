@@ -1,0 +1,28 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be a {\em directed} graph with $n$ vertices and $m$ edges. Let $\mathscr C = \{C_1, \dots, C_k\}$ be a collection of disjoint cycles in $G$. We say that $\mathscr C$ is a {\em cycle covering} if every vertex $v \in V$ in $G$ is covered in {\em exactly} one cycle $C_i$. In other words, a cycle covering is a collection of disjoint cycles that cover all vertices in $G$.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Let $E' \subseteq E$ be a set of edges in $G$. Prove that $E'$ forms a cycle covering if and only if every vertex has exactly one incoming edge and one outgoing edge in $E'$.
+
+    \item Describe an $O(m\sqrt n)$ algorithm to decide whether $G$ contains a cycle covering. You are not asked to return the covering (if one exists), just whether $G$ contains one.
+
+    {\bfseries Hint.} {\em Use bipartite matching to check for the existence of a set of edges that satisfy the condition from part (a).}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Firstly, assume that $E'$ forms a cycle covering $C = \{ C_1, \dots, C_k\}$. This means each vertex $v \in V$ is part of exactly one cycle in $C$. Now, it's obvious that, in a cycle, each vertex has exactly one incoming edge and one outgoing edge. So, in the cycle $C$, each vertex will have exactly one incoming and outgoing edge in $E'$. Conversely, assume that $v \in V$ has exactly one incoming and outgoing edge in $E'$. Follow the outgoing edge to reach other vertex, and continue along all outgoing edges. Since the graph is finite, this process must eventually reach $v$ again from our assumption, which will form a cycle. Thus, it must be so that ever vertex is part of exactly one cycle as there would be no other path, and so $E'$ decomposes $G$ into a collection of disjoint cycles that cover every vertex exactly once. This completes the proof.
+
+    \item First, split each vertex $v$ into $v_\text{in}$ and $v_\text{out}$, with each edge $(u, v) \in E$ then being connected from $u_\text{out}$ to $v_\text{in}$. This graph is bipartite, and with the Hopcroft-Karp algorithm, find the bipartite maximum matching. If the size of the maximum matching is $|V|$, then each vertex must have exactly one incoming edge and one outgoing edge, satisfying our condition from part (a). Otherwise, $G$ will not contain a cycle covering. The most expensive part is the Hopcroft-Karp algorithm is $O(m\sqrt{n})$.
+\end{enumerate}
+\end{solution}
+\end{document}

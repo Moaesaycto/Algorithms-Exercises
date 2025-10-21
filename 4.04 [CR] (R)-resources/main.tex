@@ -1,0 +1,12 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+We can apply the Edmonds-Karp Algorithm to get the maximum flow in $O(mn^2)$ time. With this, we simply construct the residual network $F$, and perform a BFS/DFS to find all the vertices that are reachable. These will be the \emph{saucy} vertices as any edges that bottleneck the flow to the maximum will need to occur after them. Similarly, if we reverse our network and apply the same process, treating $t$ as a source and $s$ as a sink, then we can apply the same logic to find the \emph{sinky} vertices. The remaining ones will be \emph{saunky}.
+\end{solution}
+\end{document}

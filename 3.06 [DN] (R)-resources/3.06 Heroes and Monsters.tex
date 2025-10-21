@@ -1,0 +1,24 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label=(\alph*)]
+If the monsters don't attack the heroes, then who are the \emph{real} monsters?
+
+\item Choose the monster(s) with the lowest health points for each of the heroes to focus their attacks on. Once it is killed, move on to the next monster with the lowest health points. Repeat until all monsters have been defeated. By prioritising the lowest health, we are lowering the amount of monsters as fast as possible.
+
+\item After $n$ damage points are dealt to a monster, the monster's health will have been reduced in total since $k < n$. In other words, it won't be able to recover all their health as each round reduces the health points by more than they do when they regenerate.
+
+\item Consider some other strategy. Since we are prioritising a single monster at a time, we are defeating that monster as fast as possible. If our strategy does not follow this, then there may exist a round where the opportunity to kill a subset of the monsters was not taken. Doing this will increase the total health points required to kill all of the monsters, and hence this would not be an ideal case.
+
+\item  The heroes can only deal $n$ points of damage per round before health points are added to each monster. If any health points are added, it will be impossible for the heroes to catch up. Therefore, they must be able to defeat the monsters on the first round. That is to say,
+
+$$\sum_{j=1}^m h_j \leq n.$$
+\end{enumerate}
+\end{solution}
+\end{document}

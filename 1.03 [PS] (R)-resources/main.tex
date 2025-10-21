@@ -1,0 +1,26 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected graph on $n$ vertices. A {\em clique} is a subset $S \subseteq V$ of vertices such that every pair of vertices in $S$ are adjacent. The size of a clique is the number of vertices in the clique.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Let $k \geq 1$ be an integer. How many distinct cliques of size $k$ could there be in $G$?
+
+    \item If $G$ has a clique of size $k$, show that $G$ has a clique of size $\ell$ for all $\ell \leq k$.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item We assume that the question is asking for the \textbf{maximum} number of cliques possible for a graph with $n$ vertices containing exactly $k$ vertices. This obviously occurs when the graph is complete, so any subset (along with their connected edges) will also be included in order to achieve a clique. So, we must choose $k$ vertices out of the $n$ total vertices. Therefore, we have $\displaystyle \binom{k}{n}$ total cliques.
+
+    \item Assume you remove a vertex, along with all edges connected to it. By definition of a clique, all other vertices must be connected and hence the result will also be a clique. This result follows mathematical induction can be repeated $k-\ell$ times.
+\end{enumerate}
+\end{solution}
+\end{document}

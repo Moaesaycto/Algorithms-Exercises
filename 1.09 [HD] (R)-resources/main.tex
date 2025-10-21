@@ -1,0 +1,28 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be an undirected graph. A vertex $v$ is a {\em cut vertex} if $G \setminus \{v\}$ has more connected components than $G$. In other words, $v$ splits $G$ into more connected components than $G$.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Prove that every graph with at least two vertices has at least two vertices that are not cut vertices.
+
+    \item If $G$ is a simple and connected graph with {\em exactly} two vertices that are not cut vertices, then $G$ must be a path.
+
+    {\bfseries Hint.} {\em Firstly, show that every spanning tree in $G$ has degree at most 2 (i.e. if $T$ is a spanning tree in $G$, then every vertex in $T$ has degree at most 2). Then, show that $G$ cannot be a cycle.}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Consider two cases. If $G$ is a tree, for $V \geq 2$, there must be at least $2$ leaf vertices, which we can remove easily without cutting the graph. If $G$ is not a tree, then there must exist a cycle with at least $3$ vertices (by definition of a cycle). In a cycle, no vertex is a cut vertex, as removing any vertex from a cycle does not disconnect the graph. We must then be able to pick at least two points in our cycle (for a cycle with more than $3$ vertices, these will be adjacent points). In both cases, we are able to find at least $2$ vertices that are not cut vertices.
+
+    \item Consider a spanning tree $T$ of $G$. If there is a vertex $v$ in $T$ with degree greater than $2$, then removing $v$ would disconnect the tree into three or more components, making $v$ a cut vertex in $G$. However, this contradicts the assumption that $G$ has exactly two vertices that are not cut vertices. Therefore, every vertex in $T$ must have degree at most 2. Furthermore, $G$ cannot be a cycle since in a cycle, no vertex is a cut vertex, which contradicts having exactly two vertices that are not cut vertices. Since every spanning tree of $G$ has vertices of degree at most 2 and $G$ is not a cycle, the only possibility left is that $G$ is a path.
+\end{enumerate}
+\end{solution}
+\end{document}

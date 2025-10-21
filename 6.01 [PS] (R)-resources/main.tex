@@ -1,0 +1,16 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item If $P = NP$, then it is implied that every problem in $NP$ is as hard as every other problem in $NP$, including those that were considered $NP$-complete. $NP\text{-}C = NP = P$ since. So, clearly $P \cup NP\text{-}C = P  \cup P = P = NP$, and since $NP \backslash NP = \varnothing$, we have completed the proof.
+
+\item If $NP \backslash (P \cup NP\text{-}C) = \varnothing$, then it must be the case that $NP \subseteq P \cup NP\text{-}C$. This implies that each element of $NP$ either belongs to either $P$ or $NP\text{-}C$. An $NP\text{-}I$ (intermediate) problem would be one from $NP$ that belongs to neither $P$ nor $NP\text{-}C$. The assumption $NP \subseteq P \cup NP\text{-}C$ implies that $NP\text{-}I = \varnothing$, and, by Ladner's theorem, it must follow that $P = NP$.
+\end{enumerate}
+\end{solution}
+\end{document}

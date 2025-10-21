@@ -1,0 +1,19 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+    \item Consider a standard exchange argument using the following conditions:
+\begin{itemize}
+	\item If $x = 1$, it's already in $S$.
+	\item If $x$ is prime, then it's already in $S$.
+	\item If $x$ is composite, then $\exists p \in P_n$ such that $p | x$ by the fundamental theorem of arithmetic, so including $x$ in $S$ would violate the condition that every pair of elements in $S$ is comprime.
+
+If we were to find an alternative solution which contains a composite number, we would be able to swap it with at least one other prime number, so any solution with a comprime value is not necessarily optimal, and hence $|S|$ is the maximum cardinality for such a set.
+\end{itemize}
+\end{solution}
+\end{document}

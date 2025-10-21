@@ -1,0 +1,18 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+In a graph $G = (V, E)$, a {\em loop} is a sequence of vertices $\{v_1, v_2, \dots, v_n, v_1\}$ such that the first and last vertices are the same and that $v_i \to v_{i + 1}$ for each $i = 1, \dots, n - 1$ and $v_n \to v_1$. However, vertices may repeat in the sequence; that is, we may visit the same vertex multiple times.
+
+A directed graph $G$ is said to be {\em strongly-connected} if, for every pair $u, v \in V$ of vertices, there exist a directed path from $u$ to $v$. A vertex $w$ is said to be {\em divisible} if there exist an integer $k > 1$ such that every loop containing $w$ has length that is divisible by $k$. Prove that, if there exist a divisible vertex on a strongly-connected graph, then every vertex is divisible.
+\end{question}
+
+\begin{solution}
+Using the parameters defined in the question, there is a divisible vertex $w$ in graph $G$ with corresponding integer $k > 1$. Let $u$ be an arbitrary vertex in $G$. Since $G$ is strongly connected, there exists a path from $u$ to $w$ (denoted as $P_{uw}$) and another path from $w$ to $u$ (denoted as $P_{wu}$). Now, consider any loop containing $u$ (denoted as $L_u$). We can construct a new loop that starts at $w$, follows $P_{uw}$ to $u$, then follows $L_u$, and finally returns to $w$ through $P_{wu}$. This new loop passes through $w$ and thus its length must be divisible by $k$. The length of this new loop is the sum of the lengths of $P_{uw}$, $L_u$, and $P_{wu}$. Since the new loop's length is divisible by $k$ and the sum of the lengths of $P_{uw}$ and $P_{wu}$ is fixed, the length of $L_u$ must also be divisible by $k$. Therefore, every loop $L_u$ containing $u$ has a length divisible by $k$. Since $u$ was chosen arbitrarily, this holds for every vertex in $G$, thus every vertex in $G$ is divisible.
+\end{solution}
+\end{document}

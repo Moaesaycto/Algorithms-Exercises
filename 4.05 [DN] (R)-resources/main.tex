@@ -1,0 +1,14 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+We will consider a binary search on $k$, with an upper bound of $n$ and a lower bound of $0$. For each value of $k$, we will use a modified directed graph, say $G_k$. In this graph, each vertex $v$ is split into $v_\text{in}$ and $v_\text{out}$, and each edge $(u,v) \in E$ is connected in both directions with a capacity of $1$. For each vertex, we will add an edge between $v_\text{in}$ and $v_\text{out}$ with a capacity of $k$. We will also initialize a source $s$, which connects to each of the $v_\text{out}$ vertices, and a sink $t$, which connects to the $v_\text{in}$ vertices. All of these new edges should have capacities equal to the degree of the corresponding vertices in $G$. For each of these values of $k$, we can then find the maximum flow from $s$ to $t$.
+
+The $v_\text{in}$ vertices can receive at most $k$ units of flow, so if we can find a maximum flow that matches the total capacity going into each $v_\text{in}$ vertex, then we have found a valid $k$-orientation. If the maximum flow equals the sum of the degrees of all vertices (which is the total capacity going out of the source $s$), then the flow successfully represents a $k$-orientation. Our binary search will take $O(\log n)$ iterations, and for each $k$, we will use the Ford-Fulkerson algorithm to find the maximum flow, which takes $O(m^2)$ time in the worst case. Therefore, the overall time complexity of the algorithm is $O(m^2 \log n)$.
+\end{solution}
+\end{document}

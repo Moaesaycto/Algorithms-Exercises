@@ -1,0 +1,35 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $P_1, \dots, P_k$ be $k$ polynomials, each of degree at least one and suppose that \[\deg(P_1) + \dots + \deg(P_k) = n.\]
+
+\begin{enumerate}[label = (\alph*)]
+    \item Describe an $O(kn\log n)$ algorithm to compute the product $P_1(x) \times \dots \times P_k(x)$.
+
+    \item Describe an $O(n \log n \log k)$ algorithm to compute the product $P_1(x) \times \dots \times P_k(x)$.
+\end{enumerate}
+
+{\bfseries Hint.} {\em In both problems, use divide and conquer and FFT.}
+\end{question}
+
+\begin{rubric}
+\begin{itemize}
+    \item This task will form part of the portfolio.
+    \item Ensure that your argument is clear and keep reworking your solutions until your lab demonstrator is happy with your work.
+\end{itemize}
+\end{rubric}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item We first want to ensure that our polynomials are padded to a length that's a power of $2$, so we can use a simple logarithm application to find the next highest power of $2$ (which will be no more than $2n - 1$ above the value). We then take the first two polynomials and apply the FFT to transform them into the frequency domain. In other words, we extrapolate points by recursively separating them into odd and even components, substituting in the $n$ roots of unity. From here, we apply a pairwise muliplication to each of the points to  obtain the product polynomial in the frequency domain. We can then apply our IFFT to return our polynomial to the coefficient domain. This process is indeed done in $O(n \log n)$ as each pointwise operation remains in linear time. We can repeat this process moving left to right until all of the $k$ polynomials have been incorporated. This is done in $O(k n \log n)$ time.
+
+    \item Our approach can be simplified by dividing the original problem into sets of two polynomials. Rather than dealing with one polynomial at a time, consider pairing the polynomials up and combining each pair using the techniques described above. If there is not an odd number, then we can omit the last polynomial for the recurrsive step. Since we are effectively halving the number of polynomials at each step, we reduce the number of total operations to being $\log k$ instead of $k$. Thus, our new approach will be $O(n \log n \log k)$.
+\end{enumerate}
+\end{solution}
+\end{document}

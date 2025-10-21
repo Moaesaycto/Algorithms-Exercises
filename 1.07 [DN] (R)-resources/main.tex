@@ -1,0 +1,38 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $G = (V, E)$ be a directed and acyclic graph. We will refer to these as DAGs, and they will become important structures later on. In this problem, we will prove some basic results about DAGs.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Show that there exist a vertex in $G$ that has no incoming edges. We refer to these as {\em source} vertices.
+
+    \item Show that there exist a vertex in $G$ that has no outgoing edges. We refer to these as {\em sink} vertices.
+
+    \item \label{topsort} Show that there exist a mapping $f : V \to \{1, \dots, n\}$ such that $(u, v) \in E$ implies that $f(u) \leq f(v)$.
+
+    Another way to interpret this is that this mapping {\em respects} the direction of the edges. We refer to this ordering as a {\em topological order} of $G$. You will later see that we can {\em sort} these vertices by its topological order; this is called a {\em topological sort}.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Suppose that every edge in our graph does have at least an incoming edge. If we pick a random starting vertex, we will be able to find a predecessor and thus can move to that vertex and continue the process. Since our graph is finite, we must at some point repeat a vertex since we will always be able to find a predecessor. However, this would imply the existence of a cycle. Therefore, by contradiction, our initial assumption is false, and so there must exist a vertex in $G$ with no incoming edges.
+
+    \item Similar to part (a), we will assume that there is indeed at least one outgoing edge for each vertex. Starting from some vertex, we can always find a new vertex to travel to along the directed edge. Since the number of vertices in the graph is finite, it implies that at some point we must repeat a vertex at some point, proving the existence of at least one cycle. Therefore, by contradiction, our initial assumption is false, and so there must exist a vertex in $G$ with no outgoing edges.
+
+    \item We can prove the existence of a mapping $f : V \to {1, \dots, n}$ for a DAG with $n$ vertices using mathematical induction.\\
+    
+    \textbf{Base Case:} When $n = 1$, there is only one vertex in the graph. We can define the mapping $f : V \to {1}$ such that $f(v) = 1$ for the single vertex $v$. This trivially satisfies the condition that $(u, v) \in E$ implies $f(u) \leq f(v)$, since there are no edges in the graph.\\
+    
+    \textbf{Inductive Step:} Assume the statement holds for a DAG with $n$ vertices. For a DAG $G'$ with $n+1$ vertices, remove a source vertex $v$ to obtain a smaller DAG $G''$ with $n$ vertices. By the induction hypothesis, there exists a mapping $f'' : V(G'') \to \{1, \dots, n\}$ that satisfies the condition. Extend this mapping to $G'$ by defining $f' : V(G') \to \{1, \dots, n+1\}$ as $f'(w) = f''(w)$ for $w \in V(G'')$ and $f'(v) = n+1$. This mapping respects the direction of the edges in $G'$.\\
+    
+    By the principle of mathematical induction, the statement holds for any DAG with $n$ vertices.
+\end{enumerate}
+\end{solution}
+\end{document}

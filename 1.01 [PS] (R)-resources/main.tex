@@ -1,0 +1,42 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Let $f_1, f_2, g_1, g_2$ be functions from $\mathbb Z^+$ to $\mathbb Z^+$, and suppose that $f_1 \in O(g_1)$ and $f_2 \in O(g_2)$.
+
+\begin{enumerate}[label = (\alph*)]
+    \item Show that $f_1 + f_2 \in O(g_1 + g_2)$.
+    \item Show that $f_1 \cdot f_2 \in O(g_1 \cdot g_2)$.
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Since $f_1 \in O(g_1)$, there exist constants $c_1 > 0$ and $n_{01} \in \mathbb{Z}^+$ such that for all $n \geq n_{01}$, we have $f_1(n) \leq c_1 g_1(n)$. Similarly, since $f_2 \in O(g_2)$, there exist constants $c_2 > 0$ and $n_{02} \in \mathbb{Z}^+$ such that $\forall n \geq n_{02}$, we have $f_2(n) \leq c_2 g_2(n)$.\\
+    
+    Let $n_0 = \max\{n_{01}, n_{02}\}$ and $c = \max\{c_1, c_2\}$. Then for all $n \geq n_0$, we have:
+    
+   \begin{align*}
+   	f_1(n) + f_2(n) &\leq c_1g_1(n) + c_2g_2(n)\\
+	&\leq cg_1(n) + cg_2(n)\\
+	&\leq c(g_1(n) + g_2(n)).
+   \end{align*}
+   
+   Thus, by definition, we have $f_1 + f_2 \in O(g_1 + g_2)$.
+
+    \item Consider the same constants from part (a). $\forall n \geq \max \{ n_{01}, n_{02} \}$, we have
+    
+       \begin{align*}
+   	f_1(n) \cdot f_2(n) &\leq c_1g_1(n) \cdot c_2g_2(n)\\
+	&\leq c_1c_2(g_1(n) \cdot g_2(n)).
+   	\end{align*}
+   
+   Thus, by definition, we have  $f_1 \cdot f_2 \in O(g_1 \cdot g_2)$.
+\end{enumerate}
+\end{solution}
+\end{document}

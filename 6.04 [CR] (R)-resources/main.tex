@@ -1,0 +1,56 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+A {\em dandelion} of length $k$ is an undirected graph that consists of a simple path of length $k$, followed by $k$ additional vertices connected to one of the endpoints.
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}
+    \node[circle, draw, right = 0.5cm, red!60!black, very thick] (b) {};
+    \node[circle, draw, right = 0.5cm of b, red!60!black, very thick] (c) {};
+    \node[circle, draw, right = 0.5cm of c, red!60!black, very thick] (d) {};
+    \node[circle, draw, right = 0.5cm of d, red!60!black, very thick] (e) {};
+    \node[circle, draw, right = 0.5cm of e, red!60!black, very thick] (f) {};
+    
+    \node[circle, draw, above left = 0.5cm and 0.25cm of f, green!60!black, very thick] (g) {};
+    \node[circle, draw, above right = 0.5cm and 0.25cm of f,green!60!black, very thick] (h) {};
+    \node[circle, draw, right = 0.5cm of f, green!60!black, very thick] (i) {};
+    \node[circle, draw, below right = 0.5cm and 0.25cm of f, green!60!black, very thick] (j) {};
+    \node[circle, draw, below left = 0.5cm and 0.25cm of f, green!60!black, very thick] (k) {};
+
+    % Draw path.
+    \draw[red!60!black, very thick] (b) -- (c) -- (d) -- (e) -- (f);
+    \draw[green!60!black, very thick] (f) -- (g);
+    \draw[green!60!black, very thick] (f) -- (h);
+    \draw[green!60!black, very thick] (f) -- (i);
+    \draw[green!60!black, very thick] (f) -- (j);
+    \draw[green!60!black, very thick] (f) -- (k);
+\end{tikzpicture}
+
+\caption*{{\em A dandelion of length $5$.}}
+\label{fig:enter-label}
+\end{figure}
+
+Given a graph $G$, prove that it is $\mathsf{NP}$-hard to find the length of the longest dandelion subgraph of $G$.
+
+{\bfseries Hint.} {\em $\compproblem{HamiltonianPath}$ is known to be $\mathsf{NP\text-C}$.}
+\end{question}
+
+\begin{solution}
+We aim to reduce the problem to $\compproblem{HamiltonianPath}$ to prove it is NP-hard. Let $G = (V,E)$ and let $n = |V|$. Construct a new graph $G' = (V', E')$ where $V'$ contains all the vertices in $V$ and $n + 1$ new ones, $x$ and $y_1, \dots y_n$, and $E'$ contains all the edges in $E$, along with new edges for each $i = 1, \dots n$ of $(x, y_i)$ and $(x, v)$ for all $v \in V$. Since there are $2n+1$ edges, our graph $G'$ can have a longest dandelion of $n$. $G'$ can be constructed in linear time.
+
+\begin{itemize}
+	\item Now, suppose that $G$ contains a Hamiltonian path. The end points will connect to $x$, which has a degree greater than $n$. If this is the case, then $G'$ will contain a dandelion of length $n$.
+	\item Conversely, if $H$ contains a dandelion of length $n$, the hub of the dandelion must be $x$ since it is the only vertex with degree greater than $n$. Obviously the path cannot contain $y_i$ as once you cannot leave from those vertices, so the stem of the dandelion must then be in $G$. This clearly implies that we have a Hamiltonian path in $G$.
+\end{itemize}
+
+In other words, $G$ contains a Hamiltonian path if and only if $G'$ contains a dandelion of length $n$. The difficulty of solving the dandelion problem is directly encompassed as at least the difficulty of solving the Hamiltonian path problem, as otherwise it would be such that  $\compproblem{HamiltonianPath}$ is not NP-C. Thus, our problem must be NP-hard.
+\end{solution}
+\end{document}

@@ -1,0 +1,18 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{solution}
+\begin{enumerate}[label=(\alph*)]
+	\item For each column in the adjacency matrix $A$, verify the number of edges that exist between other vertices is at less $5$, and do the same for vertices with no connection to the current vertex. If a vertex does not fit the bill, then remove it from $A$, which we assume takes $O(n)$.  We repeat this process until we are left with a set of people (if one exists). Each iteration takes $O(n)$, and we repeat this at most $n$ times, so the total time complexity will be $O(n^3)$.
+
+	\item Consider the algorithm for each iteration. We have no choice but to remove any vertex that doesn't fit the criteria, as such a vertex could never appear in an optimal solution. After each iteration, the same logic must apply, and as this defines our algorithm, it means that any of the omitted vertices cannot be part of any optimal solution.
+
+	\item Consider $S_1$ and $S_2$ being two distinct, optimal solutions. By the union-closed property, $S_1 \cup S_2$ must also satisfy the constraints of the problem. Since $S_1$ and $S_2$ are optimal and of equal size, established in part (b), $S_1 \cup S_2$ cannot be larger than either of them. This implies that they cannot have elements distinct from each other, so $S_1 = S_2 = S_1 \cup S_2$. Thus, our solution is unique.
+\end{enumerate}
+\end{solution}
+\end{document}

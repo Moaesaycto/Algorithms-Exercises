@@ -1,0 +1,52 @@
+\documentclass{article}
+
+% Remember to also load the algostyle.sty file into your project.
+\usepackage{algostyle}
+
+% Insert new packages here.
+
+\begin{document}
+\begin{question}
+Given a positive integer $n$, the {\em complexity} of $n$ is the minimum number of ones that can be used to represent $n$, using only the operations of addition and multiplication, as well as parenthesisation.
+
+For example, we have the following representations:
+\begin{align*}
+    6 &= (1 + 1 + 1) \times (1 + 1). \\
+    8 &= (1 + 1) \times (1 + 1) \times (1 + 1). \\
+    9 &= (1 + 1 + 1) \times (1 + 1 + 1). \\
+    12 &= (1 + 1 + 1 + 1) \times (1 + 1 + 1). \\
+    19 &= (1 + 1 + 1) \times (1 + 1 + 1) \times (1 + 1) + 1.
+\end{align*}
+
+The first twenty entries are given for you.
+\begin{center}
+    \begin{tabular}{c|cccccccccccccccccccc}
+        $n$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
+        \hline & 1 & 2 & 3 & 4 & 5 & 5 & 6 & 6 & 6 & 7 & 8 & 7 & 8 & 8 & 8 & 8 & 9 & 8 & 9 & 9
+    \end{tabular}
+\end{center}
+
+\begin{enumerate}[label = (\alph*)]
+    \item Show that every positive integer can be represented by a string of ones, along with addition, multiplication, and parenthesisation operations; that is, the complexity of $n$ is always finite.
+
+    \item Given a positive integer $n$, describe an $O(n^2)$ algorithm to compute the minimum number of one's (1's) using only the operations of addition and multiplication, as well as parentheses, whose expression equals $n$.
+\end{enumerate}
+
+{\bfseries Note.} {\em This is also known as the Mahler-Popken complexity. Here is the \href{https://oeis.org/A005245}{OEIS} entry.}
+\end{question}
+
+\begin{solution}
+\begin{enumerate}[label = (\alph*)]
+    \item Any integer can be represented as a sum of ones, so we have an upper bound as simply $\displaystyle n = \sum_{i = 1}^n 1$.
+
+    \item Begin by initialising a Dynamic Programming table of size $n+1$, $DP$, with $DP[i] = i$ for each element. Now, we must explore all pairs $(a,b)$ such that $a \times b = n$ or $a + b = n$ to ensure that we cover all different ways to arrive at that number.
+
+\begin{itemize}
+\item For each value $a$ from $1$ up until $\left \lceil \sqrt{n} \right \rceil$, we check to see if $i = 0 \text{mod} a$. If so, we take $b = i \div a$ and update $DP[i] = \min \{DP[i], DP[a] + DP[b]\}$.
+\item For each value $a$ from $1$ up until $\displaystyle \left \lceil \dfrac{n}{2} \right \rceil$, we take $b = i - a$ and again update $DP[i] = \min \{DP[i], DP[a] + DP[b]\}$.
+\end{itemize}
+
+Finally, we return the result $DP[n]$ as the ideal value. Our multiplication and addition checks take $\displaystyle O\left (\sqrt{n} + \dfrac{n}{2}\right) = O(n)$, and since we do this for all numbers up until $n$, we have an overall time complexity of $O(n^2)$. 
+\end{enumerate}
+\end{solution}
+\end{document}
